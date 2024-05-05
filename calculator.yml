@@ -1,0 +1,41 @@
+---
+- name: Simple calculator
+  hosts: localhost
+  gather_facts: False
+  vars_prompt:
+    - name: a
+      prompt: Enter value of A
+    - name: b
+      prompt: Enter value of B
+    - name: c
+      prompt: What do you want to perform Enter ADD(+),SUB(-),MUL(*),DIV(/)
+  vars:
+    addition: "{{a|int + b|int}}"
+    substraction: "{{a|int - b|int}}"
+    multiplication: "{{a|int * b|int}}"
+    division: "{{a|int / b|int if b|int !=0 else 'Division is not possible'}}"
+  tasks:
+    - name: Display Arithmetic operation
+      ansible.builtin.debug:
+        msg:
+          - "A = {{a}}, B = {{b}} and {{c}} "
+          - "Addition of A & B is {{addition}}"
+          - "Substraction of A - B = {{substraction}}"
+          - "Multiplication of A & B = {{multiplication}}"
+          - "Devision of A / B = {{division}}"
+    - name: Addition of two number
+      ansible.builtin.debug:
+        msg: "Addition is {{addition}}"
+      when: c == "ADD"
+    - name: Substraction of two number
+      ansible.builtin.debug:
+        msg: "Substraction is {{substraction}}"
+      when: c == "SUB"
+    - name: Multiply of two number
+      ansible.builtin.debug:
+        msg: "Multiplication is {{multiplication}}"
+      when: c == "MUL"
+    - name: Devision of two number
+      ansible.builtin.debug:
+        msg: "Devision is {{division}}"
+      when: c == "DIV"
