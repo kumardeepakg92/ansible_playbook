@@ -1,0 +1,13 @@
+---
+- name: Play for get default ansible facts value
+  hosts: localhost
+  gather_facts: true
+  tasks:
+    #- name: Setup module
+    # ansible.builtin.setup:
+    - name: Display default facts
+      ansible.builtin.debug:
+        msg:
+          # - "{{ ansible_facts }}"
+          #- "{{ansible_facts.keys()}}"
+          - "{{ansible_facts.os_family}}"
