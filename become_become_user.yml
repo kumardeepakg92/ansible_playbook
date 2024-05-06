@@ -13,3 +13,4 @@
       # become: yes
       # become_user: root
       # become_method: sudo
+      # ansible-playbook become.yml --ask-become-pass
